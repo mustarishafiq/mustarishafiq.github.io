@@ -1,202 +1,488 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mustari Shafiq @ MUSISME</title>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+    <title>Mustari Shafiq @ MUSISME — Developer & IT HOD</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            900: '#07080a',
+                            800: '#0d0f12',
+                            700: '#15181e',
+                            600: '#1e222b',
+                            500: '#2a2f3d',
+                        },
+                        emerald: {
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                        }
+                    },
+                    fontFamily: {
+                        mono: ['JetBrains Mono', 'Fira Code', 'Monaco', 'Consolas', 'monospace'],
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    }
+                }
+            }
         }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
         body {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            background:
-                radial-gradient(circle at top, #1a1a1a 0%, #0b0b0b 45%, #050505 100%);
-            color: #f5f5f5;
-            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background-color: #07080a;
+            color: #d1d5db;
+            font-family: 'Inter', sans-serif;
         }
 
-        .card {
-            width: 100%;
-            max-width: 480px;
-            padding: 42px;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid #292929;
-            border-radius: 24px;
-            background: rgba(17, 17, 17, 0.92);
-            box-shadow:
-                0 30px 80px rgba(0, 0, 0, 0.55),
-                inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        ::selection {
+            background: #10b981;
+            color: #07080a;
         }
 
-        .card::before {
-            content: "";
-            position: absolute;
-            width: 180px;
-            height: 180px;
-            top: -90px;
-            right: -70px;
-            border-radius: 50%;
-            background: #ffffff;
-            opacity: 0.04;
-            filter: blur(10px);
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d0f12;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a2f3d;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #10b981;
         }
 
-        .tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 28px;
-            padding: 7px 12px;
-            border: 1px solid #303030;
-            border-radius: 999px;
-            color: #a8a8a8;
-            background: #141414;
-            font-size: 12px;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
+        .terminal-glow {
+            box-shadow: 0 0 50px -10px rgba(16, 185, 129, 0.12);
         }
 
-        .tag span {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: #62e88b;
-            box-shadow: 0 0 12px rgba(98, 232, 139, 0.7);
+        .cursor-blink::after {
+            content: '█';
+            animation: blink 1s step-start infinite;
+            color: #10b981;
+            margin-left: 2px;
         }
 
-        h1 {
-            font-size: clamp(36px, 8vw, 54px);
-            line-height: 0.98;
-            letter-spacing: -0.05em;
-            margin-bottom: 12px;
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
 
-        .handle {
-            color: #858585;
-            font-size: 17px;
-            margin-bottom: 28px;
+        .glass-panel {
+            background: rgba(13, 15, 18, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s ease;
         }
 
-        .role {
-            color: #ffffff;
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 26px;
-        }
-
-        .divider {
-            height: 1px;
-            background: #292929;
-            margin: 26px 0;
-        }
-
-        .label {
-            margin-bottom: 12px;
-            color: #666;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-        }
-
-        .skills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 9px;
-        }
-
-        .skill {
-            padding: 9px 13px;
-            border: 1px solid #303030;
-            border-radius: 10px;
-            color: #cfcfcf;
-            background: #151515;
-            font-size: 13px;
-            transition: 0.2s ease;
-        }
-
-        .skill:hover {
-            border-color: #555;
-            color: #fff;
-            transform: translateY(-2px);
-        }
-
-        .quote {
-            margin-top: 28px;
-            padding: 18px 20px;
-            border-left: 2px solid #fff;
-            background: linear-gradient(90deg, #1b1b1b, transparent);
-            color: #ddd;
-            font-size: 15px;
-            font-style: italic;
-        }
-
-        .footer {
-            margin-top: 30px;
-            color: #555;
-            font-size: 11px;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-        }
-
-        @media (max-width: 480px) {
-            .card {
-                padding: 30px 24px;
-                border-radius: 20px;
-            }
-
-            h1 {
-                font-size: 38px;
-            }
+        .glass-panel:hover {
+            border-color: rgba(16, 185, 129, 0.35);
         }
     </style>
 </head>
+<body class="bg-dark-900 text-gray-300 antialiased">
 
-<body>
+    <header class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-gray-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="#hero" class="flex items-center space-x-2 font-mono font-bold text-emerald-400 text-lg tracking-tight">
+                <span class="text-gray-500">$</span><span>musisme</span><span class="animate-pulse text-emerald-500">_</span>
+            </a>
+            
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-mono">
+                <a href="#about" class="text-gray-400 hover:text-emerald-400 transition-colors">~/about</a>
+                <a href="#stack" class="text-gray-400 hover:text-emerald-400 transition-colors">~/stack</a>
+                <a href="#systems" class="text-gray-400 hover:text-emerald-400 transition-colors">~/systems</a>
+                <a href="#devops" class="text-gray-400 hover:text-emerald-400 transition-colors">~/devops</a>
+                <a href="#philosophy" class="text-gray-400 hover:text-emerald-400 transition-colors">~/philosophy</a>
+                <a href="#contact" class="text-gray-400 hover:text-emerald-400 transition-colors">~/contact</a>
+            </nav>
 
-    <main class="card">
-        <div class="tag">
-            <span></span>
-            Developer
+            <div class="flex items-center space-x-4">
+                <a href="mailto:mustarishafiq@gmail.com" class="hidden sm:inline-flex items-center px-4 py-2 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-xs hover:bg-emerald-500/20 transition-all">
+                    <span>mustarishafiq@gmail.com</span>
+                </a>
+                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-gray-400 hover:text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden glass-panel border-t border-gray-800 px-4 pt-2 pb-4 space-y-2 font-mono">
+            <a href="#about" class="block py-2 text-gray-400 hover:text-emerald-400 text-sm">~/about</a>
+            <a href="#stack" class="block py-2 text-gray-400 hover:text-emerald-400 text-sm">~/stack</a>
+            <a href="#systems" class="block py-2 text-gray-400 hover:text-emerald-400 text-sm">~/systems</a>
+            <a href="#devops" class="block py-2 text-gray-400 hover:text-emerald-400 text-sm">~/devops</a>
+            <a href="#philosophy" class="block py-2 text-gray-400 hover:text-emerald-400 text-sm">~/philosophy</a>
+            <a href="#contact" class="block py-2 text-emerald-400 text-sm">~/contact</a>
+        </div>
+    </header>
+
+    <section id="hero" class="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#1f293d12_1px,transparent_1px),linear-gradient(to_bottom,#1f293d12_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none"></div>
+
+        <div class="max-w-4xl w-full mx-auto relative z-10">
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono mb-6">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>System Online & Operational</span>
+                </div>
+                <h1 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight mb-4">
+                    Mustari Shafiq <span class="text-emerald-400 font-mono font-normal text-2xl sm:text-4xl block sm:inline mt-2 sm:mt-0">@MUSISME</span>
+                </h1>
+                <p class="text-xl sm:text-2xl font-mono text-emerald-400 font-medium tracking-wide">
+                    "I build systems, not just software."
+                </p>
+            </div>
+
+            <!-- Interactive Terminal Simulator Widget -->
+            <div class="rounded-xl glass-panel border border-gray-800 terminal-glow overflow-hidden text-left shadow-2xl">
+                <div class="bg-dark-800 px-4 py-3 border-b border-gray-800 flex items-center justify-between">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                        <div class="w-3 h-3 rounded-full bg-emerald-500/80"></div>
+                        <span class="ml-2 text-xs font-mono text-gray-400">bash — musisme@server: ~</span>
+                    </div>
+                    <div class="text-xs font-mono text-emerald-400">IT HOD / Architect</div>
+                </div>
+
+                <div class="p-6 sm:p-8 font-mono text-sm sm:text-base space-y-4 text-gray-300">
+                    <div>
+                        <span class="text-emerald-400">$</span> <span class="text-gray-100 font-semibold">whoami</span>
+                        <p class="text-gray-400 mt-1 pl-4 border-l-2 border-emerald-500/30">Mustari Shafiq (MUSISME) — Developer / IT HOD / Digital Solution Architect</p>
+                    </div>
+
+                    <div>
+                        <span class="text-emerald-400">$</span> <span class="text-gray-100 font-semibold">focus</span>
+                        <p class="text-gray-400 mt-1 pl-4 border-l-2 border-emerald-500/30">Software Development • Infrastructure • DevOps • Deployment • System Integration • Technical Operations</p>
+                    </div>
+
+                    <div>
+                        <span class="text-emerald-400">$</span> <span class="text-gray-100 font-semibold">philosophy</span>
+                        <p class="text-gray-400 mt-1 pl-4 border-l-2 border-emerald-500/30 italic">"Go hard or go home." &nbsp;|&nbsp; "If it can be automated, automate it."</p>
+                    </div>
+
+                    <div class="pt-2 flex items-center">
+                        <span class="text-emerald-400">$</span>
+                        <span class="ml-2 text-gray-300 cursor-blink"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 flex flex-wrap justify-center gap-4">
+                <a href="#systems" class="px-6 py-3 rounded-lg bg-emerald-500 text-dark-900 font-mono font-bold hover:bg-emerald-400 transition-all shadow-lg shadow-emerald-500/20 flex items-center space-x-2">
+                    <span>Explore Systems</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+                <a href="#contact" class="px-6 py-3 rounded-lg glass-panel hover:bg-dark-700 text-gray-200 font-mono border border-gray-700 transition-all">
+                    <span>Initialize Contact</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="border-l-4 border-emerald-500 pl-4 mb-12">
+            <span class="text-emerald-400 font-mono text-sm">01 // PROFILE</span>
+            <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight mt-1">About Me</h2>
         </div>
 
-        <h1>Mustari<br>Shafiq</h1>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 glass-panel p-8 rounded-2xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-8 text-emerald-500/10 font-mono font-bold text-8xl pointer-events-none select-none">01</div>
+                <h3 class="text-xl font-bold text-white mb-4 flex items-center space-x-2">
+                    <span class="text-emerald-400 font-mono">&gt;</span>
+                    <span>Hands-On Developer & IT Head</span>
+                </h3>
+                <div class="space-y-4 text-gray-300 leading-relaxed">
+                    <p>
+                        I operate across the entire technical spectrum. Rather than working in isolation on frontend interfaces or backend snippets, I build, deploy, maintain, and troubleshoot complete production environments.
+                    </p>
+                    <p>
+                        My work bridges software development, server infrastructure, CI/CD deployment pipelines, system integration, and operational management. Whether architecting enterprise web applications or maintaining high-availability cloud servers, my focus is robustness and real-world utility.
+                    </p>
+                    <p class="font-mono text-sm text-emerald-400 bg-emerald-500/10 p-4 rounded-lg border border-emerald-500/20">
+                        "Doesn't just write code — builds, deploys, maintains and troubleshoots the whole system."
+                    </p>
+                </div>
+            </div>
 
-        <div class="handle">@ MUSISME</div>
+            <div class="glass-panel p-8 rounded-2xl flex flex-col justify-between">
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-6 font-mono flex items-center space-x-2">
+                        <span class="text-emerald-400">#</span>
+                        <span>Key Attributes</span>
+                    </h3>
+                    <ul class="space-y-4 font-mono text-sm">
+                        <li class="flex justify-between border-b border-gray-800 pb-3">
+                            <span class="text-gray-400">Role:</span>
+                            <span class="text-emerald-400">Developer / IT HOD</span>
+                        </li>
+                        <li class="flex justify-between border-b border-gray-800 pb-3">
+                            <span class="text-gray-400">Alias:</span>
+                            <span class="text-white">MUSISME</span>
+                        </li>
+                        <li class="flex justify-between border-b border-gray-800 pb-3">
+                            <span class="text-gray-400">Domain:</span>
+                            <span class="text-white">Full-Stack & Infra</span>
+                        </li>
+                        <li class="flex justify-between border-b border-gray-800 pb-3">
+                            <span class="text-gray-400">Email:</span>
+                            <span class="text-emerald-400 text-xs">mustarishafiq@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mt-8 pt-4 border-t border-gray-800 text-xs font-mono text-gray-500 text-center">
+                    STATUS: PRODUCTION_READY
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <div class="role">Developer</div>
-
-        <div class="divider"></div>
-
-        <div class="label">Skills</div>
-
-        <div class="skills">
-            <div class="skill">Linux</div>
-            <div class="skill">Git</div>
-            <div class="skill">Infrastructure</div>
-            <div class="skill">DevOps</div>
-            <div class="skill">Laravel</div>
-            <div class="skill">React</div>
+    <section id="stack" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="border-l-4 border-emerald-500 pl-4 mb-12">
+            <span class="text-emerald-400 font-mono text-sm">02 // STACK</span>
+            <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight mt-1">Core Tech Stack</h2>
         </div>
 
-        <div class="quote">
-            “Go hard or go home.”
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="glass-panel p-6 rounded-2xl border-t-2 border-t-emerald-500">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="p-3 rounded-lg bg-emerald-500/10 text-emerald-400 font-mono font-bold">01</div>
+                    <h3 class="text-lg font-bold text-white">Backend & Frontend</h3>
+                </div>
+                <div class="flex flex-wrap gap-2 font-mono text-sm">
+                    <span class="px-3 py-1.5 rounded-lg bg-dark-700 border border-gray-800 text-gray-300">Laravel</span>
+                    <span class="px-3 py-1.5 rounded-lg bg-dark-700 border border-gray-800 text-gray-300">PHP</span>
+                    <span class="px-3 py-1.5 rounded-lg bg-dark-700 border border-gray-800 text-gray-300">React</span>
+                    <span class="px-3 py-1.5 rounded-lg bg-dark-700 border border-gray-800 text-gray-300">JavaScript</span>
+                    <span class="px-3 py-1.5 rounded-lg bg-dark-700 border border-gray-800 text-gray-300">MySQL / MariaDB</span>
+                    <span class="px-3 py-1.5 rounded-lg bg-dark-700 border border-gray-800 text-gray-300">REST APIs & Webhooks</span>
+                </div>
+            </div>
+
+            <div class="glass-panel p-6 rounded-2xl border-t-2 border-t-emerald-500">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="p-3 rounded-lg bg-emerald-500/10 text-emerald-400 font-mono font-bold">02</div>
+                    <h3 class="text-lg font-bold text-white">Infrastructure & DevOps</h3>
+                </div>
+                <div class="flex flex-wrap gap-2 font-mono text-sm">
+                    <span class="px-3 py-1.5 rounded-lg bg-dark-700 border border-gray-800 text-gray-300">Linux</span>
+                    <span class="px-3 py-1.5 rounded-lg bg-dark-700 border border-gray-800 text-gray-300">Git / GitHub / GitLab</span>
+                    <span class="px-3 py-1.5 rounded-lg bg-dark-700 border border-gray-800 text-gray-300">Docker</span>
+                    <span class="px-3 py-1.5 rounded-lg bg-dark-700 border border-gray-800 text-gray-300">CI/CD Pipelines</span>
+                    <span class="px-3 py-1.5 rounded-lg bg-dark-700 border border-gray-800 text-gray-300">Nginx</span>
+                    <span class="px-3 py-1.5 rounded-lg bg-dark-700 border border-gray-800 text-gray-300">Cloudflare</span>
+                    <span class="px-3 py-1.5 rounded-lg bg-dark-700 border border-gray-800 text-gray-300">DigitalOcean</span>
+                    <span class="px-3 py-1.5 rounded-lg bg-dark-700 border border-gray-800 text-gray-300">RunCloud</span>
+                </div>
+            </div>
+
+            <div class="glass-panel p-6 rounded-2xl border-t-2 border-t-emerald-500">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="p-3 rounded-lg bg-emerald-500/10 text-emerald-400 font-mono font-bold">03</div>
+                    <h3 class="text-lg font-bold text-white">Automation & Integrations</h3>
+                </div>
+                <div class="flex flex-wrap gap-2 font-mono text-sm">
+                    <span class="px-3 py-1.5 rounded-lg bg-dark-700 border border-gray-800 text-gray-300">n8n Automation</span>
+                    <span class="px-3 py-1.5 rounded-lg bg-dark-700 border border-gray-800 text-gray-300">WhatsApp Integrations</span>
+                    <span class="px-3 py-1.5 rounded-lg bg-dark-700 border border-gray-800 text-gray-300">System Integration</span>
+                    <span class="px-3 py-1.5 rounded-lg bg-dark-700 border border-gray-800 text-gray-300">Server Management</span>
+                    <span class="px-3 py-1.5 rounded-lg bg-dark-700 border border-gray-800 text-gray-300">Google Apps Script</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="systems" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="border-l-4 border-emerald-500 pl-4 mb-12">
+            <span class="text-emerald-400 font-mono text-sm">03 // SYSTEMS & PROJECTS</span>
+            <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight mt-1">What I Build & Operate</h2>
         </div>
 
-        <div class="footer">
-            Build · Deploy · Repeat
-        </div>
-    </main>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="glass-panel p-8 rounded-2xl border border-gray-800 hover:border-emerald-500/40 transition-all">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">ENTERPRISE ECOSYSTEM</span>
+                    <span class="text-xs font-mono text-gray-500">Connected Systems</span>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3">EMZI Nexus</h3>
+                <p class="text-gray-300 mb-6 leading-relaxed">
+                    An ecosystem of interconnected business systems designed to streamline corporate workflows, authentication, and inventory operations across multiple business verticals.
+                </p>
+                <div class="grid grid-cols-2 gap-3 font-mono text-xs">
+                    <div class="bg-dark-700/60 p-3 rounded-lg border border-gray-800 text-gray-300 flex items-center space-x-2">
+                        <span class="text-emerald-400">▸</span><span>SSO Authentication</span>
+                    </div>
+                    <div class="bg-dark-700/60 p-3 rounded-lg border border-gray-800 text-gray-300 flex items-center space-x-2">
+                        <span class="text-emerald-400">▸</span><span>Logistics & Fulfillment</span>
+                    </div>
+                    <div class="bg-dark-700/60 p-3 rounded-lg border border-gray-800 text-gray-300 flex items-center space-x-2">
+                        <span class="text-emerald-400">▸</span><span>Asset Management</span>
+                    </div>
+                    <div class="bg-dark-700/60 p-3 rounded-lg border border-gray-800 text-gray-300 flex items-center space-x-2">
+                        <span class="text-emerald-400">▸</span><span>Booking & Analytics</span>
+                    </div>
+                </div>
+            </div>
 
+            <div class="glass-panel p-8 rounded-2xl border border-gray-800 hover:border-emerald-500/40 transition-all">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">INDUSTRIAL DIGITIZATION</span>
+                    <span class="text-xs font-mono text-gray-500">Casthouse Operations</span>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3">Press Metal MTT System</h3>
+                <p class="text-gray-300 mb-6 leading-relaxed">
+                    Molten Transfer Ticketing (MTT) and industrial workflow digitization system engineered for heavy casthouse operations, managing weighing, quality control, driver rosters, and ordering.
+                </p>
+                <div class="grid grid-cols-2 gap-3 font-mono text-xs">
+                    <div class="bg-dark-700/60 p-3 rounded-lg border border-gray-800 text-gray-300 flex items-center space-x-2">
+                        <span class="text-emerald-400">▸</span><span>WeighBridge Integration</span>
+                    </div>
+                    <div class="bg-dark-700/60 p-3 rounded-lg border border-gray-800 text-gray-300 flex items-center space-x-2">
+                        <span class="text-emerald-400">▸</span><span>QC & Ticketing</span>
+                    </div>
+                    <div class="bg-dark-700/60 p-3 rounded-lg border border-gray-800 text-gray-300 flex items-center space-x-2">
+                        <span class="text-emerald-400">▸</span><span>Driver Rostering</span>
+                    </div>
+                    <div class="bg-dark-700/60 p-3 rounded-lg border border-gray-800 text-gray-300 flex items-center space-x-2">
+                        <span class="text-emerald-400">▸</span><span>Industrial Workflows</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="devops" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-dark-800/30 rounded-3xl border border-gray-800/50 my-8">
+        <div class="border-l-4 border-emerald-500 pl-4 mb-12">
+            <span class="text-emerald-400 font-mono text-sm">04 // DEVOPS & INFRASTRUCTURE</span>
+            <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight mt-1">Server Management & CI/CD</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="glass-panel p-8 rounded-2xl">
+                <h3 class="text-xl font-bold text-white mb-4 font-mono flex items-center space-x-2">
+                    <span class="text-emerald-400">#</span>
+                    <span>Automated Deployment Pipelines</span>
+                </h3>
+                <p class="text-gray-300 mb-6 leading-relaxed">
+                    Downtime is not an option. Every project utilizes structured GitLab CI/CD pipelines paired with Docker containers to guarantee repeatable, isolated, and zero-downtime releases.
+                </p>
+                <ul class="space-y-3 font-mono text-sm text-gray-400">
+                    <li class="flex items-center space-x-2">
+                        <span class="text-emerald-400">✓</span><span>GitLab CI/CD workflow automation</span>
+                    </li>
+                    <li class="flex items-center space-x-2">
+                        <span class="text-emerald-400">✓</span><span>Dockerized microservices & environments</span>
+                    </li>
+                    <li class="flex items-center space-x-2">
+                        <span class="text-emerald-400">✓</span><span>Instantaneous zero-downtime releases</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="glass-panel p-8 rounded-2xl">
+                <h3 class="text-xl font-bold text-white mb-4 font-mono flex items-center space-x-2">
+                    <span class="text-emerald-400">#</span>
+                    <span>Cloud & Server Architecture</span>
+                </h3>
+                <p class="text-gray-300 mb-6 leading-relaxed">
+                    Operating Linux environments on DigitalOcean and RunCloud, secured behind enterprise-grade Cloudflare firewalls, with Nginx finely tuned for high throughput.
+                </p>
+                <ul class="space-y-3 font-mono text-sm text-gray-400">
+                    <li class="flex items-center space-x-2">
+                        <span class="text-emerald-400">✓</span><span>Linux server hardening & administration</span>
+                    </li>
+                    <li class="flex items-center space-x-2">
+                        <span class="text-emerald-400">✓</span><span>Nginx reverse proxy & SSL configuration</span>
+                    </li>
+                    <li class="flex items-center space-x-2">
+                        <span class="text-emerald-400">✓</span><span>Cloudflare DNS, WAF, and edge security</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="philosophy" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="border-l-4 border-emerald-500 pl-4 mb-12">
+            <span class="text-emerald-400 font-mono text-sm">05 // MINDSET</span>
+            <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight mt-1">Engineering Philosophy</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="glass-panel p-8 rounded-2xl border-t-2 border-t-emerald-500">
+                <div class="text-emerald-400 font-mono text-sm font-bold mb-2">AUTOMATION FIRST</div>
+                <h3 class="text-2xl font-bold text-white mb-4">"If it can be automated, automate it."</h3>
+                <p class="text-gray-300 leading-relaxed">
+                    Manual repetitive tasks introduce human error and slow down execution. By leveraging n8n, webhooks, and custom scripts, I build self-sustaining workflows that run reliably without manual oversight.
+                </p>
+            </div>
+
+            <div class="glass-panel p-8 rounded-2xl border-t-2 border-t-emerald-500">
+                <div class="text-emerald-400 font-mono text-sm font-bold mb-2">DEDICATED EXECUTION</div>
+                <h3 class="text-2xl font-bold text-white mb-4">"Go hard or go home."</h3>
+                <p class="text-gray-300 leading-relaxed">
+                    Total technical commitment to building robust, high-performance, and dependable solutions. Whether troubleshooting a server failure or architecting a new system, I see it through to completion.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-center">
+        <div class="glass-panel p-10 sm:p-14 rounded-3xl border border-gray-800 terminal-glow relative overflow-hidden">
+            <div class="absolute inset-0 bg-emerald-500/5 pointer-events-none"></div>
+            
+            <span class="text-emerald-400 font-mono text-sm">06 // INITIALIZE_CONNECTION</span>
+            <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight mt-2 mb-4">Let's Build Something Robust</h2>
+            <p class="text-gray-300 max-w-xl mx-auto mb-8 font-mono text-sm">
+                Ready to discuss enterprise architecture, system integration, infrastructure scaling, or digital solutions?
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-4 font-mono text-sm">
+                <a href="mailto:mustarishafiq@gmail.com" class="px-6 py-3 rounded-lg bg-emerald-500 text-dark-900 font-bold hover:bg-emerald-400 transition-all shadow-lg shadow-emerald-500/20 flex items-center space-x-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    <span>mustarishafiq@gmail.com</span>
+                </a>
+            </div>
+
+            <div class="mt-8 text-xs font-mono text-gray-500">
+                $ echo "Go hard or go home."
+            </div>
+        </div>
+    </section>
+
+    <footer class="border-t border-gray-800/80 py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center font-mono text-xs text-gray-500 flex flex-col sm:flex-row items-center justify-between">
+        <div>
+            © 2026 Mustari Shafiq (MUSISME). All rights reserved.
+        </div>
+        <div class="mt-4 sm:mt-0 text-emerald-400">
+            $ status: operational
+        </div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    </script>
 </body>
 </html>
